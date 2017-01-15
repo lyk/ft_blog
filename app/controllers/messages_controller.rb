@@ -18,7 +18,13 @@ class MessagesController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+  	@message = Message.delete(params[:id])
+  	if @message
+  		redirect_to messages_path()
+  	else
+  		render :index
+  	end
   end
 
   private
