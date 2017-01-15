@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
 		if @message.valid?
 			@message.save
 			@messages = Message.all.order("id desc").limit(5)
-			render json: {success: "Message saved.", messages: @messages}
+			render json: {success: "Message #{@message.title} saved.", messages: @messages.to_json}
 		else
 			render json: {error: "Message can't created", errors: @message.errors}
 		end
