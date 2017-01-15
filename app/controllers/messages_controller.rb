@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
 	def index
-		@messages = Message.all.order("id desc").limit(5)
+		@messages = Message.all.order("id desc")
 		@message = Message.new
 	end
 
@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 		@message = Message.new(message_params)
 		if @message.valid?
 			@message.save
-			@messages = Message.all.order("id desc").limit(5)
+			@messages = Message.all.order("id desc")
 			render json: {success: "Message #{@message.title} saved.", messages: @messages.to_json}
 		else
 			render json: {error: "Message can't created", errors: @message.errors}

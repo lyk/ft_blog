@@ -11,42 +11,64 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<% if @messages.count > 0 %>
-			<div id="carousel" class="carousel slide" data-ride="carousel">
-			  <!-- Indicators -->
-			  <ol class="carousel-indicators">
-					<% @messages.each_with_index do |message, i| %>
-			    	<li data-target="#carousel" data-slide-to="<%= i %>" class="<%= 'active' if i.eql?(0) %>"></li>
-					<% end %>
-			  </ol>
+				<div id="carousel" class="carousel slide" data-ride="carousel">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+						<% @messages[0..4].each_with_index do |message, i| %>
+				    	<li data-target="#carousel" data-slide-to="<%= i %>" class="<%= 'active' if i.eql?(0) %>"></li>
+						<% end %>
+				  </ol>
 
-			  <!-- Wrapper for slides -->
-			  <div class="carousel-inner" role="listbox">
-					<% @messages.each_with_index do |message, i| %>
-						<% url = "https://dummyimage.com/800x400/eee/&text=#{message.title}" %>
-						<div class="item <%= 'active' if i.eql?(0) %>">
-							<img alt="<%= message.title %>" data-src="<%= url %>" src="<%= url %>" data-holder-rendered="true">
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox">
+						<% @messages.each_with_index do |message, i| %>
+							<% url = "https://dummyimage.com/800x400/eee/&text=#{message.title}" %>
+							<div class="item <%= 'active' if i.eql?(0) %>">
+								<img alt="<%= message.title %>" data-src="<%= url %>" src="<%= url %>" data-holder-rendered="true">
 
-  						<div class="carousel-caption">
-  							<p><%= message.content %></p>
-  						</div>
-						</div>
-					<% end %>
-			  </div>
+	  						<div class="carousel-caption">
+	  							<p><%= message.content %></p>
+	  						</div>
+							</div>
+						<% end %>
+				  </div>
 
-			  <!-- Controls -->
-			  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			    <span class="sr-only">Previous</span>
-			  </a>
-			  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			    <span class="sr-only">Next</span>
-			  </a>
-			</div>
+				  <!-- Controls -->
+				  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+				    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+				    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+
+				<div id="archives">
+					<table class="table table-responsive table-striped">
+						<thead>
+							<tr>
+								<td>Title</td>
+								<td>Content</td>
+								<td>Actions</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% @messages.each do |message| %>
+								<tr>
+									<td><%= message.title %></td>
+									<td><%= message.content %></td>
+									<td>
+										<p><a href="<%= message_path(message.id) %>" data-method="delete" confirm="Are you sur to delete this message ?"><span class="glyphicon glyphicon-trash"></span></a></p>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
 			<% else %>
 			None
 			<% end %>
-
 		</div>
 	</div>
 </div>

@@ -48,24 +48,29 @@ $(document).ready ->
 					$carousel.find(".carousel-inner, .carousel-indicators").empty()
 					$carousel_inner = $carousel.find(".carousel-inner")
 					$carousel_indicators = $carousel.find(".carousel-indicators")
+					$archives = $("#archives table tbody") 
+					$archives.empty()
 					picture_url = "https://dummyimage.com/800x400/eee/&text="
 					$.each JSON.parse(data.messages), (ind, message) ->
-						console.log(ind)
-						# Carousel INDICATORS
-						if (ind == 0)
-							$carousel_indicators.append('<li data-target="#carousel" data-slide-to="'+ind+'" class="active"></li>')
-						else
-							$carousel_indicators.append('<li data-target="#carousel" data-slide-to="'+ind+'" class=""></li>')
+						if (ind < 5)
+							# Carousel INDICATORS
+							if (ind == 0)
+								$carousel_indicators.append('<li data-target="#carousel" data-slide-to="'+ind+'" class="active"></li>')
+							else
+								$carousel_indicators.append('<li data-target="#carousel" data-slide-to="'+ind+'" class=""></li>')
 
-						# Carousel INNER
-						if (ind == 0)
-							$carousel_inner.append('<div class="item active"></div>')
-						else
-							$carousel_inner.append('<div class="item"></div>')
+							# Carousel INNER
+							if (ind == 0)
+								$carousel_inner.append('<div class="item active"></div>')
+							else
+								$carousel_inner.append('<div class="item"></div>')
 
-						url = picture_url+message['title']
-						$carousel_inner.find('div.item:last').append('<img alt="'+message['title']+'" data-src="'+url+'" src="'+url+'" data-holder-rendered="true">')
-						$carousel_inner.find('div.item:last').append('<div class="carousel-caption"><p>'+message['content']+'</p></div>')
+							url = picture_url+message['title']
+							$carousel_inner.find('div.item:last').append('<img alt="'+message['title']+'" data-src="'+url+'" src="'+url+'" data-holder-rendered="true">')
+							$carousel_inner.find('div.item:last').append('<div class="carousel-caption"><p>'+message['content']+'</p></div>')
+
+						$archives.append('<tr><td>'+message['title']+'</td><td>'+message['content']+'</td><td><a href="/messages/'+message['id']+'"><span class="glyphicon glyphicon-trash"></span></a></td></tr>')
+
 
 					$form.find("input[type=text]").val("");
 
